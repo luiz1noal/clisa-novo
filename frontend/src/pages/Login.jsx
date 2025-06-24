@@ -1,7 +1,12 @@
+<<<<<<< HEAD
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import { AuthContext } from "../contexts/AuthContext";
+=======
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+>>>>>>> 8265bff8923fca93423b93bed769fc29675fedde
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -9,8 +14,12 @@ export default function Login() {
   const [erro, setErro] = useState("");
   const [loading, setLoading] = useState(false);
 
+<<<<<<< HEAD
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
+=======
+  const navigate = useNavigate(); // hook para redirecionar
+>>>>>>> 8265bff8923fca93423b93bed769fc29675fedde
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -18,6 +27,7 @@ export default function Login() {
     setErro("");
 
     try {
+<<<<<<< HEAD
       const res = await api.post('/auth/login', { email, senha });
 
       if (res.data.token) {
@@ -30,6 +40,25 @@ export default function Login() {
       } else {
         setErro("Erro na conexão com o servidor.");
       }
+=======
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, senha }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setErro(data.erro || "Erro ao fazer login");
+      } else {
+        localStorage.setItem("token", data.token);
+        alert("Login realizado com sucesso!");
+        navigate("/principal"); // redireciona para a página principal
+      }
+    } catch (err) {
+      setErro("Erro na conexão com o servidor.");
+>>>>>>> 8265bff8923fca93423b93bed769fc29675fedde
     } finally {
       setLoading(false);
     }
@@ -74,6 +103,7 @@ export default function Login() {
         >
           {loading ? "Entrando..." : "Entrar"}
         </button>
+<<<<<<< HEAD
 
         {/* Botão para ir para a página de cadastro */}
         <button
@@ -83,6 +113,8 @@ export default function Login() {
         >
           Ainda não tem conta? Cadastre-se
         </button>
+=======
+>>>>>>> 8265bff8923fca93423b93bed769fc29675fedde
       </form>
     </div>
   );

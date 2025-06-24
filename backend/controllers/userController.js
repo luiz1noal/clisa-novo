@@ -21,7 +21,11 @@ exports.listMedicos = async (req, res) => {
     const result = await pool.query(`
       SELECT m.id, u.nome, u.email, m.especialidade, m.crm
       FROM medicos m
+<<<<<<< HEAD
       JOIN consultorio.usuarios u ON m.usuario_id = u.id
+=======
+      JOIN usuarios u ON m.usuario_id = u.id
+>>>>>>> 8265bff8923fca93423b93bed769fc29675fedde
     `);
     res.json(result.rows);
   } catch (err) {
@@ -49,7 +53,11 @@ exports.listPacientes = async (req, res) => {
     const result = await pool.query(`
       SELECT p.id, u.nome, u.email, p.data_nascimento
       FROM pacientes p
+<<<<<<< HEAD
       JOIN consultorio.usuarios u ON p.usuario_id = u.id
+=======
+      JOIN usuarios u ON p.usuario_id = u.id
+>>>>>>> 8265bff8923fca93423b93bed769fc29675fedde
     `);
     res.json(result.rows);
   } catch (err) {
@@ -59,6 +67,7 @@ exports.listPacientes = async (req, res) => {
 
 // Criar usuário
 exports.createUsuario = async (req, res) => {
+<<<<<<< HEAD
   const { nome, email, senha, papel } = req.body;
 
   try {
@@ -81,3 +90,20 @@ exports.createUsuario = async (req, res) => {
     res.status(500).json({ error: 'Erro interno ao cadastrar usuário.' });
   }
 };
+=======
+  const { nome, email, senha } = req.body;
+  try {
+    // Criptografar senha
+    const saltRounds = 10;
+    const hashedSenha = await bcrypt.hash(senha, saltRounds);
+    
+    const result = await pool.query(
+      'INSERT INTO consultorio.usuarios (nome, email, senha) VALUES ($1, $2, $3) RETURNING *',
+      [nome, email, senha]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+>>>>>>> 8265bff8923fca93423b93bed769fc29675fedde

@@ -1,5 +1,9 @@
 const express = require('express');
 const router = express.Router();
+<<<<<<< HEAD
+=======
+const bcrypt = require('bcrypt');
+>>>>>>> 8265bff8923fca93423b93bed769fc29675fedde
 
 const {
   createUsuario,
